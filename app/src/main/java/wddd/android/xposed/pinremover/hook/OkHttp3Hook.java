@@ -1,24 +1,18 @@
 package wddd.android.xposed.pinremover.hook;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.net.ProxySelector;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.X509TrustManager;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
 
-import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XposedBridge;
 
 import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
 import static de.robv.android.xposed.XposedHelpers.findClass;
 
-public class OkHttpClientBuilderHook implements Hook {
+public class OkHttp3Hook implements Hook {
 
     @Override
     public void hook(ClassLoader classLoader) {
@@ -182,24 +176,4 @@ public class OkHttpClientBuilderHook implements Hook {
             XposedBridge.log(e);
         }
     }
-
-//    private class ImSureItsLegitTrustManager implements X509TrustManager {
-//        @Override
-//        public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-//        }
-//
-//        @Override
-//        public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-//        }
-//
-//        public List<X509Certificate> checkServerTrusted(X509Certificate[] chain, String authType, String host) throws CertificateException {
-//            ArrayList<X509Certificate> list = new ArrayList<X509Certificate>();
-//            return list;
-//        }
-//
-//        @Override
-//        public X509Certificate[] getAcceptedIssuers() {
-//            return new X509Certificate[0];
-//        }
-//    }
 }

@@ -6,7 +6,7 @@ import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;
-import wddd.android.xposed.pinremover.hook.OkHttpClientBuilderHook;
+import wddd.android.xposed.pinremover.hook.OkHttp3Hook;
 
 import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
 
@@ -14,7 +14,7 @@ public class Main implements IXposedHookLoadPackage {
 
     private static final String PACKAGE_NAME = "com.twitter.android";
 
-    private OkHttpClientBuilderHook okHttpClientBuilderHook = new OkHttpClientBuilderHook();
+    private OkHttp3Hook okHttp3Hook = new OkHttp3Hook();
 
     @Override
     public void handleLoadPackage(final LoadPackageParam lpparam) throws Throwable {
@@ -39,7 +39,7 @@ public class Main implements IXposedHookLoadPackage {
                         Context context = (Context) param.args[0];
                         ClassLoader classLoader = context.getClassLoader();
 
-                        okHttpClientBuilderHook.hook(classLoader);
+                        okHttp3Hook.hook(classLoader);
                     }
                 }
         );
