@@ -7,57 +7,56 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.X509TrustManager;
 
 import de.robv.android.xposed.XC_MethodReplacement;
-import de.robv.android.xposed.XposedBridge;
 
 import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
 import static de.robv.android.xposed.XposedHelpers.findClass;
 
-public class OkHttp3Hook implements Hook {
+public class OkHttp3Hook extends Hook {
 
     @Override
     public void hook(ClassLoader classLoader) {
-//        try {
-//            hookBasicCertificateChainCleaner(classLoader);
-//        } catch (Exception e) {
-//            log("BasicCertificateChainCleaner hook exception: ", e);
-//        }
+        try {
+            hookBasicCertificateChainCleaner(classLoader);
+        } catch (Throwable e) {
+            log("BasicCertificateChainCleaner hook exception: ", e);
+        }
 
-//        try {
-//            hookAndroidCertificateChainCleaner(classLoader);
-//        } catch (Exception e) {
-//            log("AndroidCertificateChainCleaner hook exception: ", e);
-//        }
+        try {
+            hookAndroidCertificateChainCleaner(classLoader);
+        } catch (Throwable e) {
+            log("AndroidCertificateChainCleaner hook exception: ", e);
+        }
 
         // OkHttpClient.Builder
         try {
             hookSslSocketFactory(classLoader);
-        } catch (Exception e) {
+        } catch (Throwable e) {
             log("SslSocketFactory hook exception: ", e);
         }
 
-//        try {
-//            hookConnectionSpecs(classLoader);
-//        } catch (Exception e) {
-//            log(": ConnectionSpecs hook exception: ", e);
-//        }
-//
-//        try {
-//            hookProxySelector(classLoader);
-//        } catch (Exception e) {
-//            log("ProxySelector hook exception: ", e);
-//        }
-//
-//        try {
-//            hookProxyAuthenticator(classLoader);
-//        } catch (Exception e) {
-//            log("ProxyAuthenticator hook exception: ", e);
-//        }
-//
-//        try {
-//            hookAddInterceptor(classLoader);
-//        } catch (Exception e) {
-//            log("AddInterceptor hook exception: ", e);
-//        }
+        try {
+            hookConnectionSpecs(classLoader);
+        } catch (Throwable e) {
+            log(": ConnectionSpecs hook exception: ", e);
+        }
+
+        try {
+            hookProxySelector(classLoader);
+        } catch (Throwable e) {
+            log("ProxySelector hook exception: ", e);
+        }
+
+        try {
+            hookProxyAuthenticator(classLoader);
+        } catch (Throwable e) {
+            log("ProxyAuthenticator hook exception: ", e);
+        }
+
+        try {
+            hookAddInterceptor(classLoader);
+        } catch (Throwable e) {
+            log("AddInterceptor hook exception: ", e);
+        }
     }
 
     private void hookBasicCertificateChainCleaner(ClassLoader classLoader) {
@@ -164,16 +163,5 @@ public class OkHttp3Hook implements Hook {
                         return param.thisObject;
                     }
                 });
-    }
-
-    private void log(String message) {
-        this.log(message, null);
-    }
-
-    private void log(String message, Exception e) {
-        XposedBridge.log(this.getClass().getName() + ": " + message);
-        if (e != null) {
-            XposedBridge.log(e);
-        }
     }
 }
