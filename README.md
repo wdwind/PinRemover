@@ -20,5 +20,4 @@ MIT
 
 ## Disclaimer
 
-Use it at your own risk.
-
+This module is for educational purpose, and by no means a general module which fits all APPs. Use it at your own risk.
